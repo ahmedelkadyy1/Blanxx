@@ -284,7 +284,7 @@ function getGeminiClient(): GoogleGenAI {
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
 
   app.use(express.json());
 
@@ -558,7 +558,7 @@ async function startServer() {
     // Format products catalog context
     const productsContext = productsDb.map(p => `- ID: ${p.id}, ${p.name}, Price: $${p.price}, Category: ${p.category}, Description: ${p.description}`).join("\n");
 
-    const systemPrompt = `You are the thoughtful, slow, and calming AI Stylist and Curator of "Slow Goods Store". 
+    const systemPrompt = `You are the thoughtful, slow, and calming AI Stylist and Curator of "BLANX Store". 
 The store champions visual silence, raw basalt, undyed linen, organic terracotta, unlacquered solid brass, Kyoto brewing vessels, and unhurried meditation rituals. 
 Speak in a highly polite, peaceful, authentic, and deliberate voice. Keep paragraphs short (maximum 2-3 paragraphs). 
 You recommend combinations, select outfits or objects based on specific moods (e.g. anxiety relief, visual calm, tactile tea ceremony), and help visitors finding quiet grounding objects.
@@ -625,7 +625,7 @@ Provide a thoughtful, serene response matching this visual tranquility.`;
 
     const catalogsList = productsDb.map(p => `* id: "${p.id}", name: "${p.name}", price: $${p.price}, category: "${p.category}", tagline: "${p.tagline}", colors: "${p.colorName}"`).join("\n");
 
-    const sysPrompt = `You are the Master of Aesthetic Harmony for the Slow Goods Store.
+    const sysPrompt = `You are the Master of Aesthetic Harmony for the BLANX Store.
 Given an design intent, vibe, description, or mood (such as "minimal beige calm outfit" or "dark volcanic stone focus desk"), you select 2-3 matching products from our list, outputting a JSON object.
 Do NOT recommend unavailable items. Return EXACTLY a JSON structure with:
 {
@@ -689,7 +689,7 @@ ${catalogsList}`;
 
     const catalogsList = productsDb.map(p => `* ID: "${p.id}", Name: "${p.name}", Price: $${p.price}, Category: "${p.category}", Tagline: "${p.tagline}", Description: "${p.description}"`).join("\n");
 
-    const sysPrompt = `You are the Search Curation Engine of the Slow Goods Store.
+    const sysPrompt = `You are the Search Curation Engine of the BLANX Store.
 Instead of dumb text keyword matches, you analyze user queries (which may contain budgets e.g., "pot under 70$", colors, or abstract visual descriptions like " Kyoto morning tea experience") and find matching items.
 Return a JSON object containing matching item IDs and a short semantic reason.
 
@@ -793,7 +793,7 @@ ${catalogsList}`;
     const dbSummary = productsDb.map(p => `* ID: "${p.id}", Name: "${p.name}", Price: $${p.price}, category: "${p.category}"`).join("\n");
     const cartSummary = cartItems.map((item: any) => `- ${item.product.name} (Qty ${item.quantity})`).join("\n");
 
-    const sysPrompt = `You are the Cart optimizer and Companion Companion of "Slow Goods Store".
+    const sysPrompt = `You are the Cart optimizer and Companion Companion of "BLANX Store".
 The storefront offers FREE eco-friendly dispatch and compostable giftwrapping for curated crates totaling $150 or more.
 Given a list of items currently in the cart (totaling $${cartTotal}), analyze and recommend a single highly aligned item to reach the $150 limit, or a lovely complementary object.
 Speak concisely, in exactly 2-3 gentle sentences.
