@@ -1,0 +1,6 @@
+{
+  "name": "BLANX",
+  "description": "A calm, minimalist storefront designed for unhurried browsing, visual silence, and local grounding.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
