@@ -7,9 +7,9 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// Define __dirname in ES Modules safely
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Define path helpers safely for both ES Modules and CommonJS
+const currentFilename = typeof __filename !== "undefined" ? __filename : (typeof import.meta?.url === "string" ? fileURLToPath(import.meta.url) : "");
+const currentDirname = typeof __dirname !== "undefined" ? __dirname : (currentFilename ? path.dirname(currentFilename) : process.cwd());
 
 // Initial product catalog with inventory, ratings, and reviews
 let productsDb = [
